@@ -11,7 +11,7 @@ const links = [
   { label: "Portfolio", href: "/portfolio" },
   { label: "Blog", href: "/blog" },
   { label: "About", href: "/about" },
-  { label: "Contact", href: "/contact" },
+  { label: "Pay Invoice", href: "/pay-invoice" },
 ];
 
 export default function Navbar() {
@@ -48,7 +48,7 @@ export default function Navbar() {
               )}
             </button>
             <Link href="/contact" className="hidden md:block text-[13px] font-medium bg-white text-black px-5 py-2 hover:bg-[#F48B47] transition-colors duration-300">
-              Get Started
+              Contact
             </Link>
             {/* Mobile toggle */}
             <button onClick={() => setMobileOpen(!mobileOpen)} className="md:hidden flex flex-col gap-1.5 p-2">
@@ -77,7 +77,7 @@ export default function Navbar() {
                 Cart {itemCount > 0 && `(${itemCount})`}
               </button>
               <Link href="/contact" onClick={() => setMobileOpen(false)} className="bg-[#F48B47] text-black px-6 py-3 text-base font-semibold mt-4 inline-block w-fit">
-                Get Started
+                Contact
               </Link>
             </div>
           </motion.div>
