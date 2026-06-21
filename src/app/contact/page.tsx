@@ -106,6 +106,24 @@ export default function ContactPage() {
             {/* Sidebar Info */}
             <div className="lg:col-span-2 space-y-10">
               <div>
+                <h3 className="text-[12px] text-[#71717a] uppercase tracking-[0.15em] mb-4">Contact Details</h3>
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between py-3 border-b border-[#1c1c1c]">
+                    <span className="text-[13px] text-[#71717a]">Email</span>
+                    <a href="mailto:hello@zohaibglobal.com" className="text-[14px] font-semibold hover:text-[#F48B47] transition-colors">hello@zohaibglobal.com</a>
+                  </div>
+                  <div className="flex items-center justify-between py-3 border-b border-[#1c1c1c]">
+                    <span className="text-[13px] text-[#71717a]">Phone</span>
+                    <a href="tel:+1234567890" className="text-[14px] font-semibold hover:text-[#F48B47] transition-colors">+1 (234) 567-890</a>
+                  </div>
+                  <div className="flex flex-col py-3 border-b border-[#1c1c1c] gap-1">
+                    <span className="text-[13px] text-[#71717a]">Headquarters</span>
+                    <span className="text-[14px] font-semibold leading-relaxed">Zohaib Global Enterprises (SMC private) Limited<br/>123 Innovation Drive, Tech Park<br/>Islamabad, Pakistan</span>
+                  </div>
+                </div>
+              </div>
+
+              <div>
                 <h3 className="text-[12px] text-[#71717a] uppercase tracking-[0.15em] mb-4">Payment Methods</h3>
                 <div className="space-y-3">
                   {[
