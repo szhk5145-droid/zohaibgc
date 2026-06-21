@@ -11,7 +11,7 @@ const links = [
   { label: "Portfolio", href: "/portfolio" },
   { label: "Blog", href: "/blog" },
   { label: "About", href: "/about" },
-  { label: "FAQ", href: "/faq" },
+  { label: "Careers", href: "/careers" },
 ];
 
 export default function Navbar() {

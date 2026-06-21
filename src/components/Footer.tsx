@@ -49,6 +49,7 @@ export default function Footer() {
                 { label: "About", href: "/about" },
                 { label: "Blog", href: "/blog" },
                 { label: "FAQ", href: "/faq" },
+                { label: "Careers", href: "/careers" },
                 { label: "Contact", href: "/contact" },
               ].map((link) => (
                 <Link key={link.href} href={link.href} className="text-[13px] text-[#555] hover:text-white transition-colors duration-300">{link.label}</Link>
@@ -73,7 +74,7 @@ export default function Footer() {
 
         <div className="border-t border-[#1c1c1c] pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
           <span className="text-[12px] text-[#444]">© {new Date().getFullYear()} Zohaib Global Enterprises (SMC private) Limited. All rights reserved.</span>
-          <span className="text-[12px] text-[#444]">All prices are in USD</span>
+          <span className="text-[12px] text-[#444]">All prices are listed in PKR</span>
         </div>
       </div>
     </footer>
