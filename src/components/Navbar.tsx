@@ -23,8 +23,8 @@ export default function Navbar() {
       <nav className="fixed top-0 left-0 right-0 z-50 bg-[#0a0a0a]/80 backdrop-blur-xl border-b border-[#1c1c1c]">
         <div className="w-full px-8 md:px-12 lg:px-16 xl:px-24 h-16 flex items-center justify-between relative">
           <Link href="/" className="flex items-center gap-3 relative z-10">
-            <Image src="/logo-new.webp" alt="Zohaib Global Enterprises (SMC private) Limited" width={32} height={32} className="w-8 h-8 object-contain" />
-            <span className="text-sm font-semibold tracking-tight hidden lg:block">Zohaib Global Enterprises (SMC private) Limited</span>
+            <Image src="/logo-new.webp" alt="Zohaib Global Enterprises" width={32} height={32} className="w-8 h-8 object-contain" />
+            <span className="text-sm font-semibold tracking-tight hidden lg:block">Zohaib Global Enterprises</span>
             <span className="text-sm font-semibold tracking-tight lg:hidden">Zohaib Global</span>
           </Link>
           <div className="hidden md:flex items-center gap-10 text-[13px] text-[#71717a] absolute left-1/2 -translate-x-1/2">

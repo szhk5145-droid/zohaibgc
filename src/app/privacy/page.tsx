@@ -54,7 +54,7 @@ export default function PrivacyPage() {
 
             <div>
               <h2 className="text-lg font-semibold text-white mb-3">7. Contact</h2>
-              <p>If you have any questions about this Privacy Policy, please contact Zohaib Global Enterprises (SMC private) Limited through our Contact page or email us directly.</p>
+              <p>If you have any questions about this Privacy Policy, please contact Zohaib Global Enterprises through our Contact page or email us directly.</p>
             </div>
           </div>
         </div>

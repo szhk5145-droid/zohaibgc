@@ -17,7 +17,7 @@ export default function TermsPage() {
 
             <div>
               <h2 className="text-lg font-semibold text-white mb-3">1. Services</h2>
-              <p>Zohaib Global Enterprises (SMC private) Limited provides software development, mobile app development, website design, SaaS solutions, IT consulting, and maintenance & support services. All services are delivered based on the package selected and the scope agreed upon during the project kickoff.</p>
+              <p>Zohaib Global Enterprises provides software development, mobile app development, website design, SaaS solutions, IT consulting, and maintenance & support services. All services are delivered based on the package selected and the scope agreed upon during the project kickoff.</p>
             </div>
 
             <div>
@@ -37,7 +37,7 @@ export default function TermsPage() {
 
             <div>
               <h2 className="text-lg font-semibold text-white mb-3">5. Intellectual Property</h2>
-              <p>Upon full payment, all intellectual property rights for the deliverables are transferred to the client. Zohaib Global Enterprises (SMC private) Limited retains the right to showcase the project in its portfolio unless explicitly restricted by a non-disclosure agreement.</p>
+              <p>Upon full payment, all intellectual property rights for the deliverables are transferred to the client. Zohaib Global Enterprises retains the right to showcase the project in its portfolio unless explicitly restricted by a non-disclosure agreement.</p>
             </div>
 
             <div>
@@ -47,7 +47,7 @@ export default function TermsPage() {
 
             <div>
               <h2 className="text-lg font-semibold text-white mb-3">7. Limitation of Liability</h2>
-              <p>Zohaib Global Enterprises (SMC private) Limited&apos;s total liability for any claim arising from our services shall not exceed the total amount paid by the client for the specific service in question.</p>
+              <p>Zohaib Global Enterprises&apos;s total liability for any claim arising from our services shall not exceed the total amount paid by the client for the specific service in question.</p>
             </div>
 
             <div>

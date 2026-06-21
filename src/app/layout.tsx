@@ -17,16 +17,16 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL('https://zohaibglobal.com'),
   title: {
-    default: "Zohaib Global Enterprises (SMC private) Limited",
+    default: "Zohaib Global Enterprises",
     template: "%s | Zohaib Global Enterprises",
   },
-  description: "Zohaib Global Enterprises (SMC private) Limited delivers enterprise-grade software development, mobile applications, SaaS platforms, and IT consulting worldwide.",
+  description: "Zohaib Global Enterprises delivers enterprise-grade software development, mobile applications, SaaS platforms, and IT consulting worldwide.",
   keywords: ["software development", "mobile app development", "SaaS", "IT consulting", "ERP", "CRM", "web design", "ecommerce development", "Zohaib Global Enterprises", "SMC private limited"],
-  authors: [{ name: "Zohaib Global Enterprises (SMC private) Limited" }],
+  authors: [{ name: "Zohaib Global Enterprises" }],
   creator: "Zohaib Global Enterprises",
   publisher: "Zohaib Global Enterprises",
   openGraph: {
-    title: "Zohaib Global Enterprises (SMC private) Limited",
+    title: "Zohaib Global Enterprises",
     description: "Enterprise-grade software development and IT infrastructure solutions.",
     url: "https://zohaibglobal.com",
     siteName: "Zohaib Global Enterprises",
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Zohaib Global Enterprises (SMC private) Limited",
+    title: "Zohaib Global Enterprises",
     description: "Enterprise-grade software development and IT infrastructure solutions.",
     images: ["/logo-new.webp"],
   },

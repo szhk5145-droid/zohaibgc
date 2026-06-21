@@ -118,7 +118,7 @@ export default function ContactPage() {
                   </div>
                   <div className="flex flex-col py-3 border-b border-[#1c1c1c] gap-1">
                     <span className="text-[13px] text-[#71717a]">Headquarters</span>
-                    <span className="text-[14px] font-semibold leading-relaxed">Zohaib Global Enterprises (SMC private) Limited<br/>123 Innovation Drive, Tech Park<br/>Islamabad, Pakistan</span>
+                    <span className="text-[14px] font-semibold leading-relaxed">Zohaib Global Enterprises<br/>123 Innovation Drive, Tech Park<br/>Islamabad, Pakistan</span>
                   </div>
                 </div>
               </div>

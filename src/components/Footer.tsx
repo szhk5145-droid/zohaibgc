@@ -9,8 +9,8 @@ export default function Footer() {
           {/* Brand */}
           <div className="col-span-2">
             <div className="flex items-center gap-3 mb-5">
-              <Image src="/logo-new.webp" alt="Zohaib Global Enterprises (SMC private) Limited" width={32} height={32} className="w-8 h-8 object-contain" />
-              <span className="text-sm font-semibold leading-tight max-w-[150px]">Zohaib Global Enterprises (SMC private) Limited</span>
+              <Image src="/logo-new.webp" alt="Zohaib Global Enterprises" width={32} height={32} className="w-8 h-8 object-contain" />
+              <span className="text-sm font-semibold leading-tight max-w-[150px]">Zohaib Global Enterprises</span>
             </div>
             <p className="text-[13px] text-[#71717a] leading-relaxed max-w-xs mb-6">
               Engineering digital products with fixed pricing and full transparency. From startups to enterprises.
@@ -73,7 +73,7 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-[#1c1c1c] pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
-          <span className="text-[12px] text-[#444]">© {new Date().getFullYear()} Zohaib Global Enterprises (SMC private) Limited. All rights reserved.</span>
+          <span className="text-[12px] text-[#444]">© {new Date().getFullYear()} Zohaib Global Enterprises. All rights reserved.</span>
           <span className="text-[12px] text-[#444]">All prices are in USD</span>
         </div>
       </div>

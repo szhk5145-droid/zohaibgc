@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next';
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'Zohaib Global Enterprises (SMC private) Limited',
+    name: 'Zohaib Global Enterprises',
     short_name: 'Zohaib Global',
     description: 'Enterprise-grade software development, mobile applications, SaaS platforms, and IT consulting.',
     start_url: '/',

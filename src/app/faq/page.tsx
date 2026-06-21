@@ -9,7 +9,7 @@ const faqs = [
   // General & Company
   {
     question: "What industries do you specialize in?",
-    answer: "Zohaib Global Enterprises (SMC private) Limited has extensive experience delivering solutions across various industries including FinTech, E-Commerce, Healthcare, Logistics, and Enterprise SaaS. Our cross-industry expertise allows us to engineer robust, scalable architectures tailored to your specific market demands."
+    answer: "Zohaib Global Enterprises has extensive experience delivering solutions across various industries including FinTech, E-Commerce, Healthcare, Logistics, and Enterprise SaaS. Our cross-industry expertise allows us to engineer robust, scalable architectures tailored to your specific market demands."
   },
   {
     question: "Where is Zohaib Global Enterprises headquartered?",
