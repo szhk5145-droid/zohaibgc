@@ -38,7 +38,7 @@ export async function POST(request: NextRequest) {
       const transporter = nodemailer.createTransport({
         host: process.env.SMTP_HOST || 'smtp.gmail.com',
         port: Number(process.env.SMTP_PORT) || 587,
-        secure: process.env.SMTP_SECURE === 'true',
+        secure: Number(process.env.SMTP_PORT) === 465,
         auth: {
           user: process.env.SMTP_USER,
           pass: process.env.SMTP_PASS,
@@ -47,7 +47,7 @@ export async function POST(request: NextRequest) {
 
       await transporter.sendMail({
         from: process.env.SMTP_USER || '"Zohaib Global System" <noreply@zohaibglobal.com>',
-        to: 'zhk5145@gmail.com',
+        to: process.env.SMTP_USER,
         subject: `New Payment Initiated - Order: ${orderId || 'N/A'}`,
         html: `
           <h3>Payment Attempt Detected</h3>
@@ -71,18 +71,16 @@ export async function POST(request: NextRequest) {
     let pkrAmount = amount;
     let livePkrRate = 1;
 
-    // Convert USD to PKR for local gateways before sending to their portal
-    if (method === "easypaisa" || method === "jazzcash") {
-      try {
-        const rateResponse = await fetch("https://open.er-api.com/v6/latest/USD", { cache: "no-store" });
-        const rateData = await rateResponse.json();
-        livePkrRate = rateData.rates?.PKR || 278.50;
-        pkrAmount = Math.round(parseFloat(amount) * livePkrRate);
-      } catch (e) {
-        console.error("Exchange rate API failed. Using fallback rate.");
-        livePkrRate = 278.50;
-        pkrAmount = Math.round(parseFloat(amount) * livePkrRate);
-      }
+    // Convert USD to PKR in real-time using a free API
+    try {
+      const rateResponse = await fetch("https://open.er-api.com/v6/latest/USD", { cache: "no-store" });
+      const rateData = await rateResponse.json();
+      livePkrRate = rateData.rates?.PKR || 278.50;
+      pkrAmount = Math.round(parseFloat(amount) * livePkrRate);
+    } catch (e) {
+      console.error("Exchange rate API failed. Using fallback rate.");
+      livePkrRate = 278.50;
+      pkrAmount = Math.round(parseFloat(amount) * livePkrRate);
     }
 
     switch (method) {
@@ -125,17 +123,17 @@ export async function POST(request: NextRequest) {
       }
 
       case "bank": {
-        // ──── BANK TRANSFER ────
-        // Returns bank details for manual transfer.
-        // After user transfers, they submit a transaction reference.
-        // Admin manually verifies and marks as paid.
+        // ──── BANK API GATEWAY ────
+        // Replace this with your actual bank's API integration (e.g. HBL, Meezan, etc)
+        // Similar to JazzCash and Easypaisa.
         return NextResponse.json({
           success: true,
           gateway: "bank",
-          bankDetails: GATEWAY_CONFIG.bank,
-          orderId,
-          amount,
-          message: "Transfer to the account below and submit your transaction reference.",
+          redirectUrl: null, // Add the bank's redirect URL here when API is ready
+          message: "Secure Bank payment initiated.",
+          originalAmountUsd: amount,
+          convertedAmountPkr: pkrAmount,
+          exchangeRateUsed: livePkrRate
         });
       }
 

@@ -12,6 +12,7 @@ type Step = "details" | "payment" | "confirmation";
 export default function PayInvoicePage() {
   const [step, setStep] = useState<Step>("details");
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>(null);
+  const [isProcessing, setIsProcessing] = useState(false);
   
   const [form, setForm] = useState({
     invoiceNumber: "",
@@ -31,9 +32,32 @@ export default function PayInvoicePage() {
   };
 
   const handleSubmitPayment = async () => {
-    // In production, this would call your API route with the custom invoice details
-    // await fetch('/api/payments', { ... });
-    setStep("confirmation");
+    setIsProcessing(true);
+    try {
+      const response = await fetch('/api/payments', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          method: paymentMethod,
+          orderId: form.invoiceNumber,
+          amount: form.amount.toString(),
+          customerInfo: form
+        })
+      });
+
+      const data = await response.json();
+      
+      if (data.redirectUrl) {
+         window.location.href = data.redirectUrl;
+         return;
+      }
+
+      setStep("confirmation");
+    } catch (err) {
+      alert("Failed to initiate payment. Please try again.");
+    } finally {
+      setIsProcessing(false);
+    }
   };
 
   return (
@@ -148,7 +172,7 @@ export default function PayInvoicePage() {
                   {([
                     { id: "jazzcash" as PaymentMethod, name: "JazzCash", desc: "Pay securely via JazzCash mobile wallet", tag: "Coming Soon" },
                     { id: "easypaisa" as PaymentMethod, name: "Easypaisa", desc: "Pay securely via Easypaisa mobile wallet", tag: "Coming Soon" },
-                    { id: "bank" as PaymentMethod, name: "Bank Transfer", desc: "Direct bank transfer via IBAN", tag: "Available" },
+                    { id: "bank" as PaymentMethod, name: "Bank Transfer", desc: "Secure bank payment via API gateway", tag: "Available" },
                   ]).map((method) => (
                     <button key={method.id}
                       onClick={() => method.tag === "Available" ? setPaymentMethod(method.id) : null}
@@ -170,34 +194,6 @@ export default function PayInvoicePage() {
                     </button>
                   ))}
                 </div>
-
-                {/* Bank Transfer Details */}
-                {paymentMethod === "bank" && (
-                  <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
-                    className="border border-[#1c1c1c] p-8 bg-[#0d0d0d] space-y-6">
-                    <h3 className="font-semibold mb-4">Bank Transfer Details</h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-[13px]">
-                      {[
-                        { label: "Bank Name", value: "— To be configured —" },
-                        { label: "Account Title", value: "— To be configured —" },
-                        { label: "Account Number", value: "— To be configured —" },
-                        { label: "IBAN", value: "— To be configured —" },
-                      ].map((field) => (
-                        <div key={field.label} className="py-3 border-b border-[#1c1c1c]">
-                          <span className="text-[#71717a] block text-[11px] uppercase tracking-wider mb-1">{field.label}</span>
-                          <span className="font-medium">{field.value}</span>
-                        </div>
-                      ))}
-                    </div>
-
-                    <div>
-                      <label className="text-[12px] text-[#71717a] uppercase tracking-[0.15em] block mb-2">Transaction Reference / ID *</label>
-                      <input type="text" value={form.transactionRef} onChange={(e) => updateForm("transactionRef", e.target.value)}
-                        className="w-full bg-transparent border border-[#1c1c1c] px-4 py-3.5 text-[14px] text-white placeholder:text-[#444] focus:border-[#F48B47] focus:outline-none transition-colors"
-                        placeholder="Enter the transaction reference from your bank" />
-                    </div>
-                  </motion.div>
-                )}
               </div>
 
               {/* Summary */}
@@ -214,9 +210,14 @@ export default function PayInvoicePage() {
                       <span className="">{form.email}</span>
                     </div>
                   )}
-                  <div className="border-t border-[#1c1c1c] pt-4 flex justify-between">
-                    <span className="text-[13px] text-[#71717a] uppercase tracking-wider">Total</span>
-                    <span className="text-xl font-bold text-[#F48B47]">${Number(form.amount).toLocaleString()}</span>
+                  <div className="border-t border-[#1c1c1c] pt-4 flex flex-col items-end gap-1">
+                    <div className="w-full flex justify-between items-center">
+                      <span className="text-[13px] text-[#71717a] uppercase tracking-wider">Total</span>
+                      <span className="text-xl font-bold text-[#F48B47]">${Number(form.amount).toLocaleString()}</span>
+                    </div>
+                    {form.amount && !isNaN(Number(form.amount)) && (
+                      <span className="text-[12px] text-[#F48B47]/80">PKR {Math.round(Number(form.amount) * 278.5).toLocaleString()}</span>
+                    )}
                   </div>
                 </div>
 
@@ -227,9 +228,9 @@ export default function PayInvoicePage() {
                   </button>
                   <button
                     onClick={handleSubmitPayment}
-                    disabled={!paymentMethod}
+                    disabled={!paymentMethod || isProcessing}
                     className="w-full bg-[#F48B47] text-black font-semibold text-sm py-4 hover:bg-[#e07a38] transition-colors duration-300 disabled:opacity-30 disabled:cursor-not-allowed">
-                    Submit Payment
+                    {isProcessing ? "Processing..." : "Submit Payment"}
                   </button>
                 </div>
               </div>

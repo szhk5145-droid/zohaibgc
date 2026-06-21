@@ -141,7 +141,7 @@ export default function ContactPage() {
                 <div className="space-y-3">
                   <div className="flex items-center justify-between py-3 border-b border-[#1c1c1c]">
                     <span className="text-[13px] text-[#71717a]">Email</span>
-                    <a href="mailto:zhk5145@gmail.com" className="text-[14px] font-semibold hover:text-[#F48B47] transition-colors">zhk5145@gmail.com</a>
+                    <a href="mailto:szhk5145@gmail.com" className="text-[14px] font-semibold hover:text-[#F48B47] transition-colors">szhk5145@gmail.com</a>
                   </div>
                   <div className="flex items-center justify-between py-3 border-b border-[#1c1c1c]">
                     <span className="text-[13px] text-[#71717a]">Phone</span>

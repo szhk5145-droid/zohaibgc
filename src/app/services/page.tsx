@@ -110,11 +110,11 @@ export default function ServicesPage() {
               {/* Pricing Table */}
               <div className="border border-[#1c1c1c] overflow-hidden">
                 {/* Table Header */}
-                <div className="grid grid-cols-12 bg-[#111] px-6 py-3 text-[11px] uppercase tracking-[0.15em] text-[#71717a] border-b border-[#1c1c1c]">
-                  <div className="col-span-4 md:col-span-3">Service</div>
-                  <div className="col-span-4 hidden md:block">Description</div>
-                  <div className="col-span-4 md:col-span-2 text-right">Price (USD)</div>
-                  <div className="col-span-4 md:col-span-3 text-right">Action</div>
+                <div className="hidden md:grid grid-cols-12 bg-[#111] px-6 py-3 text-[11px] uppercase tracking-[0.15em] text-[#71717a] border-b border-[#1c1c1c]">
+                  <div className="col-span-4">Service</div>
+                  <div className="col-span-4">Description</div>
+                  <div className="col-span-2 text-right">Price</div>
+                  <div className="col-span-2 text-right">Action</div>
                 </div>
 
                 {/* Rows */}
@@ -125,29 +125,32 @@ export default function ServicesPage() {
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ delay: i * 0.02, duration: 0.4 }}
-                      className="grid grid-cols-12 px-6 py-5 border-b border-[#1c1c1c] last:border-b-0 hover:bg-[#111] transition-colors duration-300 group items-center"
+                      className="flex flex-col md:grid md:grid-cols-12 px-6 py-5 border-b border-[#1c1c1c] last:border-b-0 hover:bg-[#111] transition-colors duration-300 group md:items-center gap-3 md:gap-0"
                     >
-                      <div className="col-span-4 md:col-span-3">
-                        <span className="text-[14px] font-semibold group-hover:text-[#F48B47] transition-colors duration-300">
+                      <div className="md:col-span-4">
+                        <span className="text-[15px] font-semibold group-hover:text-[#F48B47] transition-colors duration-300">
                           {service.name}
                         </span>
-                        <p className="text-[12px] text-[#71717a] mt-1 md:hidden">{service.description}</p>
+                        <p className="text-[13px] text-[#71717a] mt-1 md:hidden">{service.description}</p>
                       </div>
-                      <div className="col-span-4 hidden md:block">
+                      <div className="hidden md:block md:col-span-4">
                         <span className="text-[13px] text-[#71717a]">{service.description}</span>
                       </div>
-                      <div className="col-span-4 md:col-span-2 text-right">
+                      <div className="md:col-span-2 md:text-right flex items-center md:block gap-2">
                         <span className="text-[#F48B47] font-semibold text-[15px]">{service.price}</span>
+                        <span className="text-[12px] text-[#71717a] md:block mt-0.5">
+                          PKR {Math.round(parsePrice(service.price) * 278.5).toLocaleString()}
+                        </span>
                       </div>
-                      <div className="col-span-4 md:col-span-3 text-right">
+                      <div className="md:col-span-2 md:text-right mt-2 md:mt-0">
                         {inCart ? (
-                          <span className="text-[12px] text-[#71717a] border border-[#1c1c1c] px-4 py-2 inline-block">
+                          <span className="text-[12px] text-[#71717a] border border-[#1c1c1c] px-4 py-2.5 inline-block w-fit">
                             ✓ Added
                           </span>
                         ) : (
                           <button
                             onClick={() => handleAdd(service.name, service.price, activeCat)}
-                            className="text-[12px] text-black bg-white hover:bg-[#F48B47] px-4 py-2 font-medium transition-colors duration-300"
+                            className="text-[12px] text-black bg-white hover:bg-[#F48B47] px-5 py-2.5 font-medium transition-colors duration-300 w-fit"
                           >
                             Add to Cart
                           </button>

@@ -15,6 +15,7 @@ export default function CheckoutPage() {
   const [step, setStep] = useState<Step>("review");
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>(null);
   const [orderNumber, setOrderNumber] = useState("");
+  const [isProcessing, setIsProcessing] = useState(false);
 
   // Form state
   const [form, setForm] = useState({
@@ -25,15 +26,36 @@ export default function CheckoutPage() {
   const updateForm = (key: string, value: string) => setForm((prev) => ({ ...prev, [key]: value }));
 
   const handleSubmitOrder = async () => {
-    // Generate order number
-    const num = `ZG-${Date.now().toString(36).toUpperCase()}`;
-    setOrderNumber(num);
+    setIsProcessing(true);
+    try {
+      const num = `ZG-${Date.now().toString(36).toUpperCase()}`;
+      setOrderNumber(num);
 
-    // In production, this would call your API route:
-    // await fetch('/api/orders', { method: 'POST', body: JSON.stringify({ items, form, paymentMethod }) });
+      const response = await fetch('/api/payments', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          method: paymentMethod,
+          orderId: num,
+          amount: total.toString(),
+          customerInfo: form
+        })
+      });
 
-    clearCart();
-    setStep("confirmation");
+      const data = await response.json();
+      
+      if (data.redirectUrl) {
+         window.location.href = data.redirectUrl;
+         return;
+      }
+
+      clearCart();
+      setStep("confirmation");
+    } catch (err) {
+      alert("Failed to initiate payment. Please try again.");
+    } finally {
+      setIsProcessing(false);
+    }
   };
 
   if (items.length === 0 && step !== "confirmation") {
@@ -95,15 +117,18 @@ export default function CheckoutPage() {
                 <h2 className="text-lg font-semibold mb-6">Selected Packages</h2>
                 <div className="border border-[#1c1c1c] overflow-hidden">
                   {items.map((item) => (
-                    <div key={item.id} className="flex items-center justify-between px-6 py-5 border-b border-[#1c1c1c] last:border-b-0 hover:bg-[#111] transition-colors">
+                    <div key={item.id} className="flex flex-col md:flex-row md:items-center justify-between px-6 py-5 border-b border-[#1c1c1c] last:border-b-0 hover:bg-[#111] transition-colors gap-4 md:gap-0">
                       <div>
                         <p className="text-[14px] font-semibold">{item.serviceName}</p>
                         <p className="text-[12px] text-[#71717a] mt-0.5">{item.categoryTitle}</p>
-                        {item.isRecurring && <span className="text-[10px] text-[#F48B47] uppercase tracking-wider">Recurring</span>}
+                        {item.isRecurring && <span className="text-[10px] text-[#F48B47] uppercase tracking-wider mt-1 inline-block">Recurring</span>}
                       </div>
-                      <div className="flex items-center gap-6">
-                        <span className="text-[#F48B47] font-semibold">{item.price}</span>
-                        <button onClick={() => removeItem(item.id)} className="text-[#555] hover:text-red-400 transition-colors text-xs">Remove</button>
+                      <div className="flex items-center justify-between md:justify-end md:gap-6 w-full md:w-auto">
+                        <div className="flex flex-col md:items-end">
+                          <span className="text-[#F48B47] font-semibold">{item.price}</span>
+                          <span className="text-[11px] text-[#71717a]">PKR {Math.round(item.priceValue * 278.5).toLocaleString()}</span>
+                        </div>
+                        <button onClick={() => removeItem(item.id)} className="text-[#555] hover:text-red-400 transition-colors text-xs border border-[#1c1c1c] px-3 py-1.5 md:border-none md:px-0 md:py-0">Remove</button>
                       </div>
                     </div>
                   ))}
@@ -121,9 +146,12 @@ export default function CheckoutPage() {
                     </div>
                   ))}
                 </div>
-                <div className="border-t border-[#1c1c1c] pt-4 flex justify-between">
-                  <span className="text-[13px] text-[#71717a] uppercase tracking-wider">Total</span>
-                  <span className="text-xl font-bold">${total.toLocaleString()}</span>
+                <div className="border-t border-[#1c1c1c] pt-4 flex flex-col items-end gap-1">
+                  <div className="w-full flex justify-between items-center">
+                    <span className="text-[13px] text-[#71717a] uppercase tracking-wider">Total</span>
+                    <span className="text-xl font-bold">${total.toLocaleString()}</span>
+                  </div>
+                  <span className="text-[12px] text-[#F48B47]">PKR {Math.round(total * 278.5).toLocaleString()}</span>
                 </div>
                 <button onClick={() => setStep("details")}
                   className="w-full mt-6 bg-[#F48B47] text-black font-semibold text-sm py-4 hover:bg-[#e07a38] transition-colors duration-300">
@@ -193,7 +221,7 @@ export default function CheckoutPage() {
                   {([
                     { id: "jazzcash" as PaymentMethod, name: "JazzCash", desc: "Pay securely via JazzCash mobile wallet", tag: "Coming Soon" },
                     { id: "easypaisa" as PaymentMethod, name: "Easypaisa", desc: "Pay securely via Easypaisa mobile wallet", tag: "Coming Soon" },
-                    { id: "bank" as PaymentMethod, name: "Bank Transfer", desc: "Direct bank transfer via IBAN", tag: "Available" },
+                    { id: "bank" as PaymentMethod, name: "Bank Transfer", desc: "Secure bank payment via API gateway", tag: "Available" },
                   ]).map((method) => (
                     <button key={method.id}
                       onClick={() => method.tag === "Available" ? setPaymentMethod(method.id) : null}
@@ -215,38 +243,6 @@ export default function CheckoutPage() {
                     </button>
                   ))}
                 </div>
-
-                {/* Bank Transfer Details */}
-                {paymentMethod === "bank" && (
-                  <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
-                    className="border border-[#1c1c1c] p-8 bg-[#0d0d0d] space-y-6">
-                    <h3 className="font-semibold mb-4">Bank Transfer Details</h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-[13px]">
-                      {[
-                        { label: "Bank Name", value: "— To be configured —" },
-                        { label: "Account Title", value: "— To be configured —" },
-                        { label: "Account Number", value: "— To be configured —" },
-                        { label: "IBAN", value: "— To be configured —" },
-                      ].map((field) => (
-                        <div key={field.label} className="py-3 border-b border-[#1c1c1c]">
-                          <span className="text-[#71717a] block text-[11px] uppercase tracking-wider mb-1">{field.label}</span>
-                          <span className="font-medium">{field.value}</span>
-                        </div>
-                      ))}
-                    </div>
-
-                    <div>
-                      <label className="text-[12px] text-[#71717a] uppercase tracking-[0.15em] block mb-2">Transaction Reference / ID *</label>
-                      <input type="text" value={form.transactionRef} onChange={(e) => updateForm("transactionRef", e.target.value)}
-                        className="w-full bg-transparent border border-[#1c1c1c] px-4 py-3.5 text-[14px] text-white placeholder:text-[#444] focus:border-[#F48B47] focus:outline-none transition-colors"
-                        placeholder="Enter the transaction reference from your bank" />
-                    </div>
-
-                    <p className="text-[12px] text-[#71717a]">
-                      After submitting, our team will verify your payment within 24 hours and reach out to begin your project.
-                    </p>
-                  </motion.div>
-                )}
               </div>
 
               {/* Order Summary */}
@@ -270,9 +266,12 @@ export default function CheckoutPage() {
                     <span className="text-[13px]">{form.email}</span>
                   </div>
                 </div>
-                <div className="border-t border-[#1c1c1c] pt-4 flex justify-between">
-                  <span className="text-[13px] text-[#71717a] uppercase tracking-wider">Total</span>
-                  <span className="text-xl font-bold">${total.toLocaleString()}</span>
+                <div className="border-t border-[#1c1c1c] pt-4 flex flex-col items-end gap-1">
+                  <div className="w-full flex justify-between items-center">
+                    <span className="text-[13px] text-[#71717a] uppercase tracking-wider">Total</span>
+                    <span className="text-xl font-bold">${total.toLocaleString()}</span>
+                  </div>
+                  <span className="text-[12px] text-[#F48B47]">PKR {Math.round(total * 278.5).toLocaleString()}</span>
                 </div>
 
                 <div className="flex flex-col gap-3 mt-6">
@@ -282,9 +281,9 @@ export default function CheckoutPage() {
                   </button>
                   <button
                     onClick={handleSubmitOrder}
-                    disabled={!paymentMethod}
+                    disabled={!paymentMethod || isProcessing}
                     className="w-full bg-[#F48B47] text-black font-semibold text-sm py-4 hover:bg-[#e07a38] transition-colors duration-300 disabled:opacity-30 disabled:cursor-not-allowed">
-                    Submit Order
+                    {isProcessing ? "Processing..." : "Submit Order"}
                   </button>
                 </div>
               </div>

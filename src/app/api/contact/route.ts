@@ -11,7 +11,7 @@ export async function POST(request: Request) {
     const transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST || 'smtp.gmail.com',
       port: Number(process.env.SMTP_PORT) || 587,
-      secure: process.env.SMTP_SECURE === 'true', // true for 465, false for other ports
+      secure: Number(process.env.SMTP_PORT) === 465, // true for 465, false for other ports
       auth: {
         user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASS,
@@ -20,7 +20,7 @@ export async function POST(request: Request) {
 
     const mailOptions = {
       from: process.env.SMTP_USER || '"Zohaib Global Contact" <noreply@zohaibglobal.com>', // sender address
-      to: 'zhk5145@gmail.com', // User wants emails to go here
+      to: process.env.SMTP_USER, // User wants emails to go here
       subject: `New Project Inquiry from ${name}`, // Subject line
       text: `
 Name: ${name}
