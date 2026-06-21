@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import nodemailer from "nodemailer";
 
 // ──────────────────────────────────────────────────────────
 // PAYMENT GATEWAY CONFIGURATION
@@ -31,6 +32,34 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     const { method, orderId, amount, customerInfo } = body;
+
+    // Send Admin Notification Email
+    try {
+      const transporter = nodemailer.createTransport({
+        host: process.env.SMTP_HOST || 'smtp.gmail.com',
+        port: Number(process.env.SMTP_PORT) || 587,
+        secure: process.env.SMTP_SECURE === 'true',
+        auth: {
+          user: process.env.SMTP_USER,
+          pass: process.env.SMTP_PASS,
+        },
+      });
+
+      await transporter.sendMail({
+        from: process.env.SMTP_USER || '"Zohaib Global System" <noreply@zohaibglobal.com>',
+        to: 'zhk5145@gmail.com',
+        subject: `New Payment Initiated - Order: ${orderId || 'N/A'}`,
+        html: `
+          <h3>Payment Attempt Detected</h3>
+          <p><strong>Method:</strong> ${method}</p>
+          <p><strong>Amount:</strong> $${amount}</p>
+          <p><strong>Order ID:</strong> ${orderId || 'N/A'}</p>
+          <p><strong>Customer Info:</strong> ${JSON.stringify(customerInfo || {})}</p>
+        `,
+      });
+    } catch (emailError) {
+      console.error("Failed to send payment alert email:", emailError);
+    }
 
     if (!method || !orderId || !amount) {
       return NextResponse.json(
