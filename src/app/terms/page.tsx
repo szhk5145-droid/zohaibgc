@@ -27,7 +27,7 @@ export default function TermsPage() {
 
             <div>
               <h2 className="text-lg font-semibold text-white mb-3">3. Payment Terms</h2>
-              <p>Payment is required before project commencement. We accept payments via JazzCash, Easypaisa, and direct bank transfer. For projects above Rs. 4,177,500, milestone-based payment schedules may be arranged upon mutual agreement.</p>
+              <p>Payment is required before project commencement. We accept payments via JazzCash, Easypaisa, and direct bank transfer. For projects above $15,000 milestone-based payment schedules may be arranged upon mutual agreement.</p>
             </div>
 
             <div>

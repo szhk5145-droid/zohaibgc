@@ -187,7 +187,7 @@ export async function getStaticProps({ params }) {
 
       <p>You lose the "drag-and-drop" simplicity of a Shopify template. Your team is now responsible for building the cart state management, handling complex multi-currency routing, securing API tokens in edge middleware, and orchestrating deployment pipelines.</p>
 
-      <p>However, if your store generates over Rs. 2,785M in annual revenue, the performance gains of headless architecture typically pay for the entire development cost within the first quarter through dramatically increased conversion metrics and lowered bounce rates. At Zohaib Global, we engineer these exact highly-available, distributed e-commerce ecosystems.</p>
+      <p>However, if your store generates over $10M in annual revenue, the performance gains of headless architecture typically pay for the entire development cost within the first quarter through dramatically increased conversion metrics and lowered bounce rates. At Zohaib Global, we engineer these exact highly-available, distributed e-commerce ecosystems.</p>
     `
   },
   {
@@ -725,12 +725,12 @@ CREATE TABLE transactions_2026_02 PARTITION OF transactions
     coverImage: "https://images.unsplash.com/photo-1601597111158-2fceff292cdc?auto=format&fit=crop&w=2000&q=80",
     content: `
       <h2>The Unforgiving Nature of Financial Data</h2>
-      <p>If a social media post fails to load, the user refreshes. If a streaming video buffers, the user waits. If a Rs. 13,925,000 corporate wire transfer fails halfway through processing, you have a financial disaster that triggers legal compliance audits.</p>
+      <p>If a social media post fails to load, the user refreshes. If a streaming video buffers, the user waits. If a $50,000 corporate wire transfer fails halfway through processing, you have a financial disaster that triggers legal compliance audits.</p>
       
       <p>FinTech engineering is not about building the fastest application; it is about building the most resilient application. In distributed systems, networks drop, databases lock, and third-party bank APIs will randomly return 502 Bad Gateway errors. Your payment architecture must assume that everything will fail, all the time.</p>
 
       <blockquote>
-        "There is no 'eventual consistency' in payment processing. You cannot tell a user 'Your account might have Rs. 139,250 or Rs. 278,500, we will figure it out in a few minutes.' You need strict ACID compliance."
+        "There is no 'eventual consistency' in payment processing. You cannot tell a user 'Your account might have $500 or $1,000 we will figure it out in a few minutes.' You need strict ACID compliance."
       </blockquote>
 
       <hr />
@@ -787,7 +787,7 @@ export async function processPayment(req, res) {
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
           <span>Security Pro-Tip</span>
         </div>
-        <p>Never store raw PANs (Primary Account Numbers) in your database unless you want to spend Rs. 69,625,000 a year on PCI-DSS Level 1 compliance audits. Use network tokenization via providers like VGS (Very Good Security) to keep toxic data out of your infrastructure entirely.</p>
+        <p>Never store raw PANs (Primary Account Numbers) in your database unless you want to spend $250,000 a year on PCI-DSS Level 1 compliance audits. Use network tokenization via providers like VGS (Very Good Security) to keep toxic data out of your infrastructure entirely.</p>
       </div>
 
       <hr />

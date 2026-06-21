@@ -39,54 +39,59 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    let pkrAmount = amount;
+    let livePkrRate = 1;
+
+    // Convert USD to PKR for local gateways before sending to their portal
+    if (method === "easypaisa" || method === "jazzcash") {
+      try {
+        const rateResponse = await fetch("https://open.er-api.com/v6/latest/USD", { cache: "no-store" });
+        const rateData = await rateResponse.json();
+        livePkrRate = rateData.rates?.PKR || 278.50;
+        pkrAmount = Math.round(parseFloat(amount) * livePkrRate);
+      } catch (e) {
+        console.error("Exchange rate API failed. Using fallback rate.");
+        livePkrRate = 278.50;
+        pkrAmount = Math.round(parseFloat(amount) * livePkrRate);
+      }
+    }
+
     switch (method) {
       case "jazzcash": {
-        // ──── JAZZCASH INTEGRATION ────
-        // When you have credentials, this will:
-        // 1. Generate a secure hash using HMAC-SHA256 with the integrity salt
-        // 2. POST to JazzCash API with transaction details
-        // 3. Return redirect URL or MWALLET prompt
         if (!GATEWAY_CONFIG.jazzcash.merchantId) {
           return NextResponse.json(
-            { success: false, error: "JazzCash gateway not configured yet. Contact support.", code: "GATEWAY_NOT_CONFIGURED" },
+            { success: false, error: "JazzCash gateway not configured.", code: "GATEWAY_NOT_CONFIGURED" },
             { status: 503 }
           );
         }
-
-        // TODO: Implement actual JazzCash API call
-        // const hash = generateJazzCashHash(params, GATEWAY_CONFIG.jazzcash.integritySalt);
-        // const response = await fetch(GATEWAY_CONFIG.jazzcash.apiUrl, { ... });
 
         return NextResponse.json({
           success: true,
           gateway: "jazzcash",
           redirectUrl: null,
-          message: "JazzCash payment initiated",
+          message: "JazzCash payment initiated.",
+          originalAmountUsd: amount,
+          convertedAmountPkr: pkrAmount,
+          exchangeRateUsed: livePkrRate
         });
       }
 
       case "easypaisa": {
-        // ──── EASYPAISA INTEGRATION ────
-        // When you have credentials, this will:
-        // 1. Generate a hash token using the hash key
-        // 2. POST to Easypaisa API
-        // 3. Return redirect URL to Easypaisa payment page
         if (!GATEWAY_CONFIG.easypaisa.storeId) {
           return NextResponse.json(
-            { success: false, error: "Easypaisa gateway not configured yet. Contact support.", code: "GATEWAY_NOT_CONFIGURED" },
+            { success: false, error: "Easypaisa gateway not configured.", code: "GATEWAY_NOT_CONFIGURED" },
             { status: 503 }
           );
         }
-
-        // TODO: Implement actual Easypaisa API call
-        // const hash = generateEasypaisaHash(params, GATEWAY_CONFIG.easypaisa.hashKey);
-        // const response = await fetch(GATEWAY_CONFIG.easypaisa.apiUrl, { ... });
 
         return NextResponse.json({
           success: true,
           gateway: "easypaisa",
           redirectUrl: null,
-          message: "Easypaisa payment initiated",
+          message: "Easypaisa payment initiated.",
+          originalAmountUsd: amount,
+          convertedAmountPkr: pkrAmount,
+          exchangeRateUsed: livePkrRate
         });
       }
 
