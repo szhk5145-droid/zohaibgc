@@ -8,9 +8,40 @@ import Footer from "@/components/Footer";
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSubmitted(true);
+    setIsSubmitting(true);
+
+    const formData = new FormData(e.currentTarget);
+    const data = {
+      name: formData.get("name"),
+      email: formData.get("email"),
+      company: formData.get("company"),
+      budget: formData.get("budget"),
+      service: formData.get("service"),
+      details: formData.get("details"),
+    };
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        setSubmitted(true);
+      } else {
+        alert("Something went wrong. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      alert("Error sending message. Please try again later.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -50,24 +81,24 @@ export default function ContactPage() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                       <label className="text-[12px] text-[#71717a] uppercase tracking-[0.15em] block mb-2">Full Name *</label>
-                      <input required type="text" placeholder="John Doe"
+                      <input required type="text" name="name" placeholder="John Doe"
                         className="w-full bg-transparent border border-[#1c1c1c] px-4 py-3.5 text-[14px] text-white placeholder:text-[#444] focus:border-[#F48B47] focus:outline-none transition-colors duration-300" />
                     </div>
                     <div>
                       <label className="text-[12px] text-[#71717a] uppercase tracking-[0.15em] block mb-2">Email *</label>
-                      <input required type="email" placeholder="john@company.com"
+                      <input required type="email" name="email" placeholder="john@company.com"
                         className="w-full bg-transparent border border-[#1c1c1c] px-4 py-3.5 text-[14px] text-white placeholder:text-[#444] focus:border-[#F48B47] focus:outline-none transition-colors duration-300" />
                     </div>
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                       <label className="text-[12px] text-[#71717a] uppercase tracking-[0.15em] block mb-2">Company</label>
-                      <input type="text" placeholder="Your company"
+                      <input type="text" name="company" placeholder="Your company"
                         className="w-full bg-transparent border border-[#1c1c1c] px-4 py-3.5 text-[14px] text-white placeholder:text-[#444] focus:border-[#F48B47] focus:outline-none transition-colors duration-300" />
                     </div>
                     <div>
                       <label className="text-[12px] text-[#71717a] uppercase tracking-[0.15em] block mb-2">Budget Range</label>
-                      <select className="w-full bg-[#0a0a0a] border border-[#1c1c1c] px-4 py-3.5 text-[14px] text-[#71717a] focus:border-[#F48B47] focus:outline-none transition-colors duration-300 appearance-none">
+                      <select name="budget" className="w-full bg-[#0a0a0a] border border-[#1c1c1c] px-4 py-3.5 text-[14px] text-[#71717a] focus:border-[#F48B47] focus:outline-none transition-colors duration-300 appearance-none">
                         <option>Select a range</option>
                         <option>Under $5,000</option>
                         <option>$5,000 – $15,000</option>
@@ -79,7 +110,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <label className="text-[12px] text-[#71717a] uppercase tracking-[0.15em] block mb-2">Service Interested In</label>
-                    <select className="w-full bg-[#0a0a0a] border border-[#1c1c1c] px-4 py-3.5 text-[14px] text-[#71717a] focus:border-[#F48B47] focus:outline-none transition-colors duration-300 appearance-none">
+                    <select name="service" className="w-full bg-[#0a0a0a] border border-[#1c1c1c] px-4 py-3.5 text-[14px] text-[#71717a] focus:border-[#F48B47] focus:outline-none transition-colors duration-300 appearance-none">
                       <option>Select a service</option>
                       <option>Software Development</option>
                       <option>Mobile App Development</option>
@@ -92,12 +123,12 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <label className="text-[12px] text-[#71717a] uppercase tracking-[0.15em] block mb-2">Project Details *</label>
-                    <textarea required rows={6} placeholder="Tell us about your project, requirements, and timeline..."
+                    <textarea required name="details" rows={6} placeholder="Tell us about your project, requirements, and timeline..."
                       className="w-full bg-transparent border border-[#1c1c1c] px-4 py-3.5 text-[14px] text-white placeholder:text-[#444] focus:border-[#F48B47] focus:outline-none transition-colors duration-300 resize-none" />
                   </div>
-                  <button type="submit"
-                    className="bg-[#F48B47] text-black font-semibold text-sm px-10 py-4 hover:bg-[#e07a38] transition-colors duration-300">
-                    Send Message
+                  <button type="submit" disabled={isSubmitting}
+                    className="bg-[#F48B47] text-black font-semibold text-sm px-10 py-4 hover:bg-[#e07a38] transition-colors duration-300 disabled:opacity-50">
+                    {isSubmitting ? "Sending..." : "Send Message"}
                   </button>
                 </form>
               )}
@@ -110,15 +141,15 @@ export default function ContactPage() {
                 <div className="space-y-3">
                   <div className="flex items-center justify-between py-3 border-b border-[#1c1c1c]">
                     <span className="text-[13px] text-[#71717a]">Email</span>
-                    <a href="mailto:hello@zohaibglobal.com" className="text-[14px] font-semibold hover:text-[#F48B47] transition-colors">hello@zohaibglobal.com</a>
+                    <a href="mailto:zhk5145@gmail.com" className="text-[14px] font-semibold hover:text-[#F48B47] transition-colors">zhk5145@gmail.com</a>
                   </div>
                   <div className="flex items-center justify-between py-3 border-b border-[#1c1c1c]">
                     <span className="text-[13px] text-[#71717a]">Phone</span>
-                    <a href="tel:+1234567890" className="text-[14px] font-semibold hover:text-[#F48B47] transition-colors">+1 (234) 567-890</a>
+                    <a href="tel:+923188365839" className="text-[14px] font-semibold hover:text-[#F48B47] transition-colors">+92 318 8365839</a>
                   </div>
                   <div className="flex flex-col py-3 border-b border-[#1c1c1c] gap-1">
                     <span className="text-[13px] text-[#71717a]">Headquarters</span>
-                    <span className="text-[14px] font-semibold leading-relaxed">Zohaib Global Enterprises<br/>123 Innovation Drive, Tech Park<br/>Islamabad, Pakistan</span>
+                    <span className="text-[14px] font-semibold leading-relaxed">Shop No 01 Hanif mansion soldier bazar<br/>opposite nishtar park karachi</span>
                   </div>
                 </div>
               </div>
