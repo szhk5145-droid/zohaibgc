@@ -21,26 +21,7 @@ const values = [
   }
 ];
 
-const roles = [
-  {
-    title: "Senior Cloud Architect",
-    type: "Full-Time",
-    location: "Remote (Global)",
-    tags: ["AWS", "Kubernetes", "Terraform"]
-  },
-  {
-    title: "Lead Frontend Engineer",
-    type: "Full-Time",
-    location: "Hybrid / Remote",
-    tags: ["Next.js", "React", "TypeScript"]
-  },
-  {
-    title: "FinTech Security Analyst",
-    type: "Contract",
-    location: "Remote",
-    tags: ["Cybersecurity", "Compliance", "Auditing"]
-  }
-];
+const roles: any[] = [];
 
 export const metadata = {
   title: "Careers | Zohaib Global Enterprises",
@@ -112,31 +93,46 @@ export default function Careers() {
             <h2 className="text-3xl md:text-5xl font-bold mb-12 text-white">Open Positions</h2>
             
             <div className="flex flex-col gap-6">
-              {roles.map((role, i) => (
-                <div key={i} className="flex flex-col md:flex-row md:items-center justify-between p-8 border border-[#1c1c1c] bg-[#121212] rounded-2xl hover:border-[#F48B47] transition-all group">
-                  <div>
-                    <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-[#F48B47] transition-colors">{role.title}</h3>
-                    <div className="flex items-center gap-4 text-sm text-[#71717a] font-medium mb-4">
-                      <span>{role.type}</span>
-                      <span className="w-1 h-1 rounded-full bg-[#333]" />
-                      <span>{role.location}</span>
+              {roles.length > 0 ? (
+                roles.map((role, i) => (
+                  <div key={i} className="flex flex-col md:flex-row md:items-center justify-between p-8 border border-[#1c1c1c] bg-[#121212] rounded-2xl hover:border-[#F48B47] transition-all group">
+                    <div>
+                      <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-[#F48B47] transition-colors">{role.title}</h3>
+                      <div className="flex items-center gap-4 text-sm text-[#71717a] font-medium mb-4">
+                        <span>{role.type}</span>
+                        <span className="w-1 h-1 rounded-full bg-[#333]" />
+                        <span>{role.location}</span>
+                      </div>
+                      <div className="flex gap-2">
+                        {role.tags.map((tag: string) => (
+                          <span key={tag} className="text-xs px-3 py-1 border border-[#333] rounded-full text-[#a1a1aa] bg-[#0a0a0a]">
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
                     </div>
-                    <div className="flex gap-2">
-                      {role.tags.map(tag => (
-                        <span key={tag} className="text-xs px-3 py-1 border border-[#333] rounded-full text-[#a1a1aa] bg-[#0a0a0a]">
-                          {tag}
-                        </span>
-                      ))}
+                    
+                    <div className="mt-8 md:mt-0">
+                      <Link href="/contact" className="inline-flex items-center justify-center px-6 py-3 bg-[#1c1c1c] text-white font-semibold rounded-lg hover:bg-[#F48B47] transition-colors whitespace-nowrap border border-[#333]">
+                        Apply Now
+                      </Link>
                     </div>
                   </div>
-                  
-                  <div className="mt-8 md:mt-0">
-                    <Link href="/contact" className="inline-flex items-center justify-center px-6 py-3 bg-[#1c1c1c] text-white font-semibold rounded-lg hover:bg-[#F48B47] transition-colors whitespace-nowrap border border-[#333]">
-                      Apply Now
-                    </Link>
+                ))
+              ) : (
+                <div className="p-12 border border-[#1c1c1c] bg-[#121212] rounded-2xl text-center">
+                  <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#1c1c1c] mb-6">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[#71717a]">
+                      <rect width="20" height="14" x="2" y="7" rx="2" ry="2"/>
+                      <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+                    </svg>
                   </div>
+                  <h3 className="text-2xl font-bold text-white mb-2">No open roles at the moment</h3>
+                  <p className="text-[#a1a1aa] max-w-md mx-auto">
+                    We are not actively hiring right now, but our engineering team is always expanding. Check back later or send an open application below.
+                  </p>
                 </div>
-              ))}
+              )}
             </div>
             
             <div className="mt-16 p-8 bg-[#140b05] border border-[#F48B47]/30 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-8">
