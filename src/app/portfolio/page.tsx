@@ -60,7 +60,10 @@ export default function PortfolioPage() {
       {/* Header */}
       <section className="pt-32 pb-16 border-b border-[#1c1c1c]">
         <div className="max-w-[1400px] mx-auto px-8 md:px-12 lg:px-16 xl:px-24">
-
+          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+            className="text-[#F48B47] text-[13px] font-medium tracking-[0.15em] uppercase mb-4">
+            Featured Work
+          </motion.p>
           <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
             className="text-5xl md:text-6xl md:leading-tight font-bold tracking-tight mb-6 max-w-3xl">
             Our <span className="text-[#71717a]">Portfolio</span>
