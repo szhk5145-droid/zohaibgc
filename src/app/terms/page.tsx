@@ -22,12 +22,12 @@ export default function TermsPage() {
 
             <div>
               <h2 className="text-lg font-semibold text-white mb-3">2. Fixed Pricing</h2>
-              <p>All prices listed on our website are fixed starting package prices for standard projects. Prices are quoted in US Dollars (USD). Advanced features, third-party integrations, AI capabilities, or large-scale enterprise requirements may require a custom quotation and separate agreement.</p>
+              <p>All prices listed on our website are fixed starting package prices for standard projects. Prices are quoted in Pakistani Rupees (PKR). Advanced features, third-party integrations, AI capabilities, or large-scale enterprise requirements may require a custom quotation and separate agreement.</p>
             </div>
 
             <div>
               <h2 className="text-lg font-semibold text-white mb-3">3. Payment Terms</h2>
-              <p>Payment is required before project commencement. We accept payments via JazzCash, Easypaisa, and direct bank transfer. For projects above $15,000 milestone-based payment schedules may be arranged upon mutual agreement.</p>
+              <p>Payment is required before project commencement. We accept payments via JazzCash, Easypaisa, and direct bank transfer. For projects above PKR 50,000 milestone-based payment schedules may be arranged upon mutual agreement.</p>
             </div>
 
             <div>

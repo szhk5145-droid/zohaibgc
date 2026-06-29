@@ -100,11 +100,11 @@ export default function ContactPage() {
                       <label className="text-[12px] text-[#71717a] uppercase tracking-[0.15em] block mb-2">Budget Range</label>
                       <select name="budget" className="w-full bg-[#0a0a0a] border border-[#1c1c1c] px-4 py-3.5 text-[14px] text-[#71717a] focus:border-[#F48B47] focus:outline-none transition-colors duration-300 appearance-none">
                         <option>Select a range</option>
-                        <option>Under $5,000</option>
-                        <option>$5,000 – $15,000</option>
-                        <option>$15,000 – $30,000</option>
-                        <option>$30,000 – $50,000</option>
-                        <option>$50,000+</option>
+                        <option>Under PKR 15,000</option>
+                        <option>PKR 15,000 – PKR 35,000</option>
+                        <option>PKR 35,000 – PKR 50,000</option>
+                        <option>PKR 50,000 – PKR 100,000</option>
+                        <option>PKR 100,000+</option>
                       </select>
                     </div>
                   </div>
@@ -177,7 +177,7 @@ export default function ContactPage() {
                     { label: "Response Time", value: "Within 24 hours" },
                     { label: "Project Kickoff", value: "Within 48 hours" },
                     { label: "Packages Available", value: "70+" },
-                    { label: "Price Range", value: "$800 – $50,000+" },
+                    { label: "Price Range", value: "PKR 2,500 – PKR 50,000+" },
                   ].map((fact) => (
                     <div key={fact.label} className="flex items-center justify-between py-3 border-b border-[#1c1c1c]">
                       <span className="text-[13px] text-[#71717a]">{fact.label}</span>
@@ -190,7 +190,7 @@ export default function ContactPage() {
               <div className="p-8 border border-[#1c1c1c] bg-[#0d0d0d]">
                 <h3 className="font-semibold mb-2">Enterprise Projects</h3>
                 <p className="text-[13px] text-[#71717a] leading-relaxed">
-                  For projects over $50,000 or with complex requirements, we provide custom quotations with detailed SOW documentation.
+                  For projects over PKR 100,000 or with complex requirements, we provide custom quotations with detailed SOW documentation.
                 </p>
               </div>
             </div>

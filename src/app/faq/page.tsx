@@ -19,7 +19,7 @@ const faqs = [
   // Pricing & Contracts
   {
     question: "Do you offer fixed-price contracts?",
-    answer: "Yes, we provide transparent, fixed-price contracts ranging from comprehensive MVP deployments ($800 - $2,500) to complete Enterprise Ecosystem architectures ($15,000 - $50,000+). This ensures budget predictability and strict adherence to project timelines."
+    answer: "Yes, we provide transparent, fixed-price contracts ranging from comprehensive MVP deployments (PKR 15,000 - PKR 35,000) to complete Enterprise Ecosystem architectures (PKR 50,000 - PKR 100,000+). This ensures budget predictability and strict adherence to project timelines."
   },
   {
     question: "What are your payment terms?",

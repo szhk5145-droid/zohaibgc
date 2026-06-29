@@ -22,12 +22,12 @@ export default function Home() {
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
   const serviceSummary = [
-    { category: "Software Development", from: "$5,000", count: 20, slug: "software-development" },
-    { category: "Mobile Applications", from: "$2,000", count: 10, slug: "mobile-app-development" },
-    { category: "Website Design & Development", from: "$800", count: 10, slug: "website-design-development" },
-    { category: "SaaS Solutions", from: "$6,000", count: 10, slug: "saas-solutions" },
-    { category: "IT Consulting", from: "$2,000", count: 10, slug: "it-consulting" },
-    { category: "Maintenance & Support", from: "$300/mo", count: 10, slug: "maintenance-support" },
+    { category: "Software Development", from: "PKR 10,000", count: 20, slug: "software-development" },
+    { category: "Mobile Applications", from: "PKR 2,500/mo", count: 10, slug: "mobile-app-development" },
+    { category: "Website Design & Development", from: "PKR 1,500/mo", count: 10, slug: "website-design-development" },
+    { category: "SaaS Solutions", from: "PKR 4,000/mo", count: 10, slug: "saas-solutions" },
+    { category: "IT Consulting", from: "PKR 5,000", count: 10, slug: "it-consulting" },
+    { category: "Maintenance & Support", from: "PKR 1,200/mo", count: 10, slug: "maintenance-support" },
   ];
 
   return (
@@ -56,7 +56,7 @@ export default function Home() {
 
             <motion.p variants={fadeUp} initial="hidden" animate="visible" custom={2}
               className="mt-10 text-[#71717a] text-lg max-w-lg leading-relaxed">
-              Fixed-price packages from $800 to $50,000+.
+              Fixed-price packages from PKR 1,200/mo to PKR 50,000+.
               <br />Enterprise-grade quality. Transparent from day one.
             </motion.p>
 

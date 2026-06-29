@@ -32,7 +32,7 @@ export async function POST(request: NextRequest) {
       payment: {
         method: paymentMethod,
         amount: total,
-        currency: "USD",
+        currency: "PKR",
         transactionRef: transactionRef || null,
         status: "pending",
       },

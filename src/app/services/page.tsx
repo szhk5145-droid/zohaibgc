@@ -138,9 +138,6 @@ export default function ServicesPage() {
                       </div>
                       <div className="md:col-span-2 md:text-right flex items-center md:block gap-2">
                         <span className="text-[#F48B47] font-semibold text-[15px]">{service.price}</span>
-                        <span className="text-[12px] text-[#71717a] md:block mt-0.5">
-                          PKR {Math.round(parsePrice(service.price) * 278.5).toLocaleString()}
-                        </span>
                       </div>
                       <div className="md:col-span-2 md:text-right mt-2 md:mt-0">
                         {inCart ? (

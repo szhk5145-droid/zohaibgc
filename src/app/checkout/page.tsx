@@ -126,7 +126,6 @@ export default function CheckoutPage() {
                       <div className="flex items-center justify-between md:justify-end md:gap-6 w-full md:w-auto">
                         <div className="flex flex-col md:items-end">
                           <span className="text-[#F48B47] font-semibold">{item.price}</span>
-                          <span className="text-[11px] text-[#71717a]">PKR {Math.round(item.priceValue * 278.5).toLocaleString()}</span>
                         </div>
                         <button onClick={() => removeItem(item.id)} className="text-[#555] hover:text-red-400 transition-colors text-xs border border-[#1c1c1c] px-3 py-1.5 md:border-none md:px-0 md:py-0">Remove</button>
                       </div>
@@ -149,9 +148,8 @@ export default function CheckoutPage() {
                 <div className="border-t border-[#1c1c1c] pt-4 flex flex-col items-end gap-1">
                   <div className="w-full flex justify-between items-center">
                     <span className="text-[13px] text-[#71717a] uppercase tracking-wider">Total</span>
-                    <span className="text-xl font-bold">${total.toLocaleString()}</span>
+                    <span className="text-xl font-bold">PKR {total.toLocaleString()}</span>
                   </div>
-                  <span className="text-[12px] text-[#F48B47]">PKR {Math.round(total * 278.5).toLocaleString()}</span>
                 </div>
                 <button onClick={() => setStep("details")}
                   className="w-full mt-6 bg-[#F48B47] text-black font-semibold text-sm py-4 hover:bg-[#e07a38] transition-colors duration-300">
@@ -269,9 +267,8 @@ export default function CheckoutPage() {
                 <div className="border-t border-[#1c1c1c] pt-4 flex flex-col items-end gap-1">
                   <div className="w-full flex justify-between items-center">
                     <span className="text-[13px] text-[#71717a] uppercase tracking-wider">Total</span>
-                    <span className="text-xl font-bold">${total.toLocaleString()}</span>
+                    <span className="text-xl font-bold">PKR {total.toLocaleString()}</span>
                   </div>
-                  <span className="text-[12px] text-[#F48B47]">PKR {Math.round(total * 278.5).toLocaleString()}</span>
                 </div>
 
                 <div className="flex flex-col gap-3 mt-6">

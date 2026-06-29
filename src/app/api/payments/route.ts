@@ -52,7 +52,7 @@ export async function POST(request: NextRequest) {
         html: `
           <h3>Payment Attempt Detected</h3>
           <p><strong>Method:</strong> ${method}</p>
-          <p><strong>Amount:</strong> $${amount}</p>
+          <p><strong>Amount:</strong> PKR ${amount}</p>
           <p><strong>Order ID:</strong> ${orderId || 'N/A'}</p>
           <p><strong>Customer Info:</strong> ${JSON.stringify(customerInfo || {})}</p>
         `,
@@ -68,20 +68,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    let pkrAmount = amount;
-    let livePkrRate = 1;
-
-    // Convert USD to PKR in real-time using a free API
-    try {
-      const rateResponse = await fetch("https://open.er-api.com/v6/latest/USD", { cache: "no-store" });
-      const rateData = await rateResponse.json();
-      livePkrRate = rateData.rates?.PKR || 278.50;
-      pkrAmount = Math.round(parseFloat(amount) * livePkrRate);
-    } catch (e) {
-      console.error("Exchange rate API failed. Using fallback rate.");
-      livePkrRate = 278.50;
-      pkrAmount = Math.round(parseFloat(amount) * livePkrRate);
-    }
+    const pkrAmount = parseFloat(amount);
 
     switch (method) {
       case "jazzcash": {
@@ -97,9 +84,7 @@ export async function POST(request: NextRequest) {
           gateway: "jazzcash",
           redirectUrl: null,
           message: "JazzCash payment initiated.",
-          originalAmountUsd: amount,
-          convertedAmountPkr: pkrAmount,
-          exchangeRateUsed: livePkrRate
+          amountPkr: pkrAmount
         });
       }
 
@@ -116,9 +101,7 @@ export async function POST(request: NextRequest) {
           gateway: "easypaisa",
           redirectUrl: null,
           message: "Easypaisa payment initiated.",
-          originalAmountUsd: amount,
-          convertedAmountPkr: pkrAmount,
-          exchangeRateUsed: livePkrRate
+          amountPkr: pkrAmount
         });
       }
 
@@ -131,9 +114,7 @@ export async function POST(request: NextRequest) {
           gateway: "bank",
           redirectUrl: null, // Add the bank's redirect URL here when API is ready
           message: "Secure Bank payment initiated.",
-          originalAmountUsd: amount,
-          convertedAmountPkr: pkrAmount,
-          exchangeRateUsed: livePkrRate
+          amountPkr: pkrAmount
         });
       }
 

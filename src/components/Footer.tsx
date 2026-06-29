@@ -74,7 +74,7 @@ export default function Footer() {
 
         <div className="border-t border-[#1c1c1c] pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
           <span className="text-[12px] text-[#444]">© {new Date().getFullYear()} Zohaib Global Enterprises. All rights reserved.</span>
-          <span className="text-[12px] text-[#444]">All prices are in USD</span>
+          <span className="text-[12px] text-[#444]">All prices are in PKR</span>
         </div>
       </div>
     </footer>

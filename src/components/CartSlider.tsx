@@ -73,7 +73,7 @@ export default function CartSlider() {
               <div className="px-6 py-5 border-t border-[#1c1c1c] space-y-4">
                 <div className="flex items-center justify-between">
                   <span className="text-[13px] text-[#71717a] uppercase tracking-wider">Subtotal</span>
-                  <span className="text-xl font-bold">${total.toLocaleString()}</span>
+                  <span className="text-xl font-bold">PKR {total.toLocaleString()}</span>
                 </div>
                 <Link href="/checkout" onClick={() => setIsOpen(false)}
                   className="block w-full bg-[#F48B47] text-black text-center font-semibold text-sm py-4 hover:bg-[#e07a38] transition-colors duration-300">

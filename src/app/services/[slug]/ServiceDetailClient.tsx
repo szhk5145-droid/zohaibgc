@@ -63,7 +63,7 @@ export default function ServiceDetailClient({ category }: { category: ServiceCat
               <span className="w-2 h-2 bg-[#F48B47] rounded-full" />
               <span className="text-[#71717a]">Fixed Price Packages</span>
             </div>
-            <span className="text-[#71717a]">All prices are in USD</span>
+            <span className="text-[#71717a]">All prices are in PKR</span>
           </motion.div>
         </div>
       </section>
@@ -76,7 +76,7 @@ export default function ServiceDetailClient({ category }: { category: ServiceCat
             <div className="grid grid-cols-12 bg-[#F48B47] px-6 py-3 text-[11px] uppercase tracking-[0.15em] text-black font-semibold">
               <div className="col-span-4 md:col-span-3">Service</div>
               <div className="col-span-4 hidden md:block">Description</div>
-              <div className="col-span-4 md:col-span-2 text-right">Price (USD)</div>
+              <div className="col-span-4 md:col-span-2 text-right">Price (PKR)</div>
               <div className="col-span-4 md:col-span-3 text-right">Action</div>
             </div>
 

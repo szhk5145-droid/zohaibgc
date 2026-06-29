@@ -143,10 +143,10 @@ export default function PayInvoicePage() {
                   
                   <div>
                     <label className="text-[13px] font-medium block mb-2">
-                      Amount (USD) <span className="text-[#F48B47]">*</span>
+                      Amount (PKR) <span className="text-[#F48B47]">*</span>
                     </label>
                     <div className="relative">
-                      <span className="absolute left-4 top-1/2 -translate-y-1/2 text-[#71717a]">$</span>
+                      <span className="absolute left-4 top-1/2 -translate-y-1/2 text-[#71717a]">Rs</span>
                       <input required type="number" min="1" step="0.01" value={form.amount} onChange={(e) => updateForm("amount", e.target.value)}
                         placeholder="Enter amount"
                         className="w-full bg-[#0a0a0a] border border-[#1c1c1c] pl-8 pr-4 py-3.5 text-[14px] text-white placeholder:text-[#444] focus:border-[#F48B47] focus:outline-none transition-colors" />
@@ -213,11 +213,8 @@ export default function PayInvoicePage() {
                   <div className="border-t border-[#1c1c1c] pt-4 flex flex-col items-end gap-1">
                     <div className="w-full flex justify-between items-center">
                       <span className="text-[13px] text-[#71717a] uppercase tracking-wider">Total</span>
-                      <span className="text-xl font-bold text-[#F48B47]">${Number(form.amount).toLocaleString()}</span>
+                      <span className="text-xl font-bold text-[#F48B47]">PKR {Number(form.amount).toLocaleString()}</span>
                     </div>
-                    {form.amount && !isNaN(Number(form.amount)) && (
-                      <span className="text-[12px] text-[#F48B47]/80">PKR {Math.round(Number(form.amount) * 278.5).toLocaleString()}</span>
-                    )}
                   </div>
                 </div>
 
